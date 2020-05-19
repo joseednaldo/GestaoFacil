@@ -22,5 +22,7 @@ namespace GestaoFacil
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+
     }
 }
