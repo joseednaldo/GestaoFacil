@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using GestaoFacil.Models;
-using GestaoFacil.WebApi.Controllers;
+
 
 
 namespace GestaoFacil.Controllers
@@ -14,7 +14,7 @@ namespace GestaoFacil.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ClientesController cliente;
+      //  private readonly ClientesController cliente;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -40,12 +40,12 @@ namespace GestaoFacil.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public void teste()
-        {
-            //;
-            ClientesController cliente = new ClientesController();
-            var teste =  cliente.Index();
+        //public void teste()
+        //{
+        //    //;
+        //    ClientesController cliente = new ClientesController();
+        //    var teste =  cliente.Index();
 
-        }
+        //}
     }
 }
