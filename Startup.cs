@@ -5,7 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using GestaoFacil.Dados;
-
+using GestaoFacil.Dados.Repositories.Interfaces;
+using GestaoFacil.Dados.Repositories;
 
 namespace GestaoFacil
 {
@@ -23,6 +24,10 @@ namespace GestaoFacil
         {
             services.AddControllersWithViews();
             services.AddDbContext<Context>(options => options.UseSqlServer(Util.GetConnectionString("Base")));
+
+            //Registrando como serviço minhas interfaces pra ser usado nos controles... 
+            services.AddTransient<IAcaoRepository, AcaoRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

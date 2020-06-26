@@ -4,33 +4,99 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GestaoFacil</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/easy/easycal.css" />
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GestaoFacil</a>
+            <div class="container-fluid">
+                @*<img src="~/global_assets/images/rci-banque-espana-logo.png" alt="" width="32" height="32" title="Bootstrap">*@
+                <a id="edi" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GestaoFacil</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
+                        @*<li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <div class="dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Cadastros
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Profissionais</a>
+                                    <a class="dropdown-item" href="#">Clientes</a>
+                                    <a class="dropdown-item" href="#">Serviços</a>
+                                    <a class="dropdown-item" href="#">Produtos</a>
+                                </div>
+                            </div>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <div class="dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Financeiro
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Controle de Despesas</a>
+                                </div>
+                            </div>
                         </li>
+
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Relatórios Gerências
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Faturamento</a>
+                                    <a class="dropdown-item" href="#">Relatório</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Configurações
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Parametros</a>
+                                    <a class="dropdown-item" href="#">Permissões</a>
+                                    <a class="dropdown-item" href="#">Cadastro de Usuários</a>
+                                </div>
+                            </div>
+                        </li>
+
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+
+        
+
+
     <div class="container">
         <main role="main" class="pb-3">
+
+            <div class="mycal"></div>
+
             @RenderBody()
         </main>
     </div>
@@ -40,9 +106,48 @@
             &copy; 2020 - GestaoFacil - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="~/lib/easy/easycal.js"></script>
+    <script src="~/lib/easy/dataset.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
+
+    <script>
+
+        $('.mycal').easycal({
+            startDate: '20-06-2020', // OR 31/10/2104
+            timeFormat: 'HH:mm',
+            columnDateFormat: 'dddd, DD MMM',
+            minTime: '09:00:00',
+            maxTime: '19:00:00',
+            slotDuration: 30,
+            timeGranularity: 25,
+
+            dayClick: function (el, startTime) {
+                console.log('Slot selected: ' + startTime);
+            },
+            eventClick: function (eventId) {
+                console.log('Event was clicked with id: ' + eventId);
+            },
+
+            events: getEvents(),
+
+            overlapColor: '#FF0',
+            overlapTextColor: '#000',
+            overlapTitle: 'Multiple'
+        });
+
+    </script>
+
+
 </body>
 </html>
+
+
+  
